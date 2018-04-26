@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class ItemBehaviour : MonoBehaviour {
 
-	public float movementSpeed;
+	public int Shape;
+	public int Color;
+	public float MovementSpeed;
 
 	void Start () {
-		GetComponent<MeshFilter> ().mesh = GetComponent<MeshFilter> ().mesh;
+		GetComponentInChildren<MeshFilter> ().mesh = GetComponentInChildren<MeshFilter> ().mesh;
 	}
 
 	void Update () {
 		if (transform.localPosition != Vector3.zero) {
-			transform.position -= new Vector3 (0f, movementSpeed, 0f);
+			transform.position -= new Vector3 (0f, MovementSpeed, 0f);
 		} 
 	}
 

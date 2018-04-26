@@ -40,7 +40,7 @@ public class SpawnManager : MonoBehaviour {
 		if (globalTimer >= timerCheck) {
 			timerCheck += 30f;
 			foreach (GameObject item in Items) {
-				item.GetComponent<ItemBehaviour>().movementSpeed += 0.05f;
+				item.GetComponent<ItemBehaviour>().MovementSpeed += 0.05f;
 			}
 		}
 	}

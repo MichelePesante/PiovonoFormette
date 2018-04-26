@@ -10,12 +10,12 @@ public class Player : MonoBehaviour {
 	private GameManager gm;
 
 	private bool isLeft = true;
-	private bool isSquare = true;
-	private bool isWhite = true;
+	private int Player_Shape;
+	private int Player_Color;
 
 	void Start () {
 		gm = GameManager.Instance;
-		GetComponent<MeshFilter>().mesh = GetComponent<MeshFilter>().mesh;
+		GetComponentInChildren<MeshFilter>().mesh = gm.Object_1.GetComponentInChildren<MeshFilter>().mesh;
 	}
 
 	void Update () {
@@ -39,40 +39,40 @@ public class Player : MonoBehaviour {
 
 	private void SwitchShape () {
 		if (Input.GetKeyDown (KeyCode.A)) {
-			if (isSquare) {
-				GetComponent<MeshFilter> ().mesh = gm.White_Sphere.GetComponent<MeshFilter> ().mesh;
-				isSquare = false;
+			if (Player_Shape == 0) {
+				GetComponentInChildren<MeshFilter> ().mesh = gm.Object_3.GetComponentInChildren<MeshFilter> ().mesh;
+				Player_Shape = 1;
 			}
-			else {
-				GetComponent<MeshFilter> ().mesh = gm.White_Cube.GetComponent<MeshFilter> ().mesh;
-				isSquare = true;
+			else if (Player_Shape == 1) {
+				GetComponentInChildren<MeshFilter> ().mesh = gm.Object_1.GetComponentInChildren<MeshFilter> ().mesh;
+				Player_Shape = 0;
 			}
 		}
 	}
 
 	private void SwitchColor () {
 		if (Input.GetKeyDown (KeyCode.Space)) {
-			if (isWhite) {
-				GetComponent<MeshRenderer> ().material.color = gm.Black_Sphere.GetComponent<MeshRenderer> ().material.color;
-				isWhite = false;
+			if (Player_Color == 0) {
+				GetComponentInChildren<MeshRenderer> ().material.color = gm.Object_4.GetComponentInChildren<MeshRenderer> ().material.color;
+				Player_Color = 1;
 			}
-			else {
-				GetComponent<MeshRenderer> ().material.color = gm.White_Sphere.GetComponent<MeshRenderer> ().material.color;
-				isWhite = true;
+			else if (Player_Color == 1){
+				GetComponentInChildren<MeshRenderer> ().material.color = gm.Object_3.GetComponentInChildren<MeshRenderer> ().material.color;
+				Player_Color = 0;
 			}
 		}
 	}
 
 	void OnTriggerEnter (Collider other) {
-		if (other.GetComponent<MeshRenderer> ().material.color == GetComponent<MeshRenderer> ().material.color) {
+		if (other.GetComponent<ItemBehaviour>().Shape == Player_Shape) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
 		}
 
-		if (other.GetComponent<MeshFilter> ().sharedMesh.name == GetComponent<MeshFilter> ().sharedMesh.name) {
+		if (other.GetComponent<ItemBehaviour>().Color == Player_Color) {
 			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
 		}
 
-		if (other.GetComponent<MeshRenderer> ().material.color != GetComponent<MeshRenderer> ().material.color && other.GetComponent<MeshFilter> ().sharedMesh.name != GetComponent<MeshFilter> ().sharedMesh.name) {
+		if (other.GetComponent<ItemBehaviour>().Shape != Player_Shape && other.GetComponent<ItemBehaviour>().Color != Player_Color) {
 			Score += 1;
 			gm.UIm.ScoreText.text = "Score: " + Score;
 		}

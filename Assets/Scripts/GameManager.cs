@@ -9,10 +9,10 @@ public class GameManager : MonoBehaviour {
 	public SpawnManager sm;
 	public UIManager UIm;
 
-	public GameObject White_Cube;
-	public GameObject Black_Cube;
-	public GameObject White_Sphere;
-	public GameObject Black_Sphere;
+	public GameObject Object_1;
+	public GameObject Object_2;
+	public GameObject Object_3;
+	public GameObject Object_4;
 
 	void Awake () {
 		if (Instance == null)
